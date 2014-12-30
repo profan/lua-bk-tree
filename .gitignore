@@ -1,1 +1,3 @@
 .*.s??
+*.lua
+!bk-tree.lua
