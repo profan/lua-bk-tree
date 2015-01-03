@@ -6,7 +6,7 @@ Implementation of bk-trees with Lehvenstein distance in Lua, inspired by [Damn C
 Requirements
 ------------
 
-* Lua >= 5.1 (?)
+* Lua >= 5.1
 
 Running the tests
 
@@ -27,11 +27,6 @@ TODO
 ------------
 
  - [ ] ... write tests?
-
-Credits
-------------
-
-	...
 
 License
 ------------
