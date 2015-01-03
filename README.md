@@ -1,6 +1,6 @@
 bk-trees
 =================================
-Implementation of bk-trees with Lehvenstein distance in Lua, inspired by an article:
+Implementation of bk-trees with Levenshtein distance in Lua, inspired by an article:
 * [Damn Cool Algorithms, Part 1: BK-Trees](http://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Trees)
 
 Requirements

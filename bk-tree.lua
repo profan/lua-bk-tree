@@ -15,7 +15,7 @@ local function min(...)
 
 end
 
-local function lehvenshtein_dist(s1, s2) 
+local function levenshtein_dist(s1, s2) 
 
 	if (s1:len() == 0) then return s2:len() end
 	if (s2:len() == 0) then return s1:len() end
@@ -27,9 +27,9 @@ local function lehvenshtein_dist(s1, s2)
 		cost = 1
 	end
 
-	return min(lehvenshtein_dist(s1:sub(1, #s1-1), s2) + 1,
-				lehvenshtein_dist(s1, s2:sub(1, #s2-1)) + 1,
-				lehvenshtein_dist(s1:sub(1, #s1-1), s2:sub(1, #s2-1)) + cost)
+	return min(levenshtein_dist(s1:sub(1, #s1-1), s2) + 1,
+				levenshtein_dist(s1, s2:sub(1, #s2-1)) + 1,
+				levenshtein_dist(s1:sub(1, #s1-1), s2:sub(1, #s2-1)) + cost)
 
 end
 
@@ -37,7 +37,7 @@ function bk_tree:new(root_word, dist_func)
 
 	local n_obj = {}
 	n_obj.root = { str = root_word, children = {} }
-	n_obj.dist_func = dist_func or lehvenshtein_dist
+	n_obj.dist_func = dist_func or levenshtein_dist
 
 	setmetatable(n_obj, self)
 	self.__index = self
