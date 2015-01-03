@@ -95,14 +95,8 @@ end
 
 function bk_tree:debug()
 
-	self:reset_stats()
+	self.stats = { nodes = 0, queries = 0 }
 	debug.sethook(self.hook, "c")
-
-end
-
-function bk_tree:reset_stats()
-
-	self.stats = { queries = 0, nodes = 0 }
 
 end
 
@@ -111,8 +105,7 @@ function bk_tree:print()
 	print("\nNodes: " .. self.stats.nodes)
 	print("Queries: " .. self.stats.queries)
 	print("Nodes Queried: " .. self.stats.queries/self.stats.nodes*100 .. "%\n")
-	
-	self:reset_stats()
+	self.stats.queries = 0
 
 end
 
