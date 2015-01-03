@@ -74,8 +74,8 @@ function bk_tree:remove(word, node, parent, n)
 
 	if dist == 0 then
 		parent.children[n] = nil
-		for k, v in pairs(node.children) do
-			self:insert(node.children[k].str, parent)
+		for k, child in pairs(node.children) do
+			self:insert(child.str, parent)
 		end
 		return true
 	end
