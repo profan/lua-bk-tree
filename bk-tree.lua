@@ -15,6 +15,11 @@ local function min(...)
 
 end
 
+
+--[[
+	Naive Recursive Levenshstein Distance 
+	http://en.wikipedia.org/wiki/Levenshtein_distance#Recursive
+]]--
 local function levenshtein_dist(s1, s2) 
 
 	if (s1:len() == 0) then return s2:len() end
@@ -54,7 +59,7 @@ function bk_tree:insert(word, node)
 	local some_node = node.children[dist]
 
 	if not some_node then
-		node.children[dist] = {str = word, children = {}}
+		node.children[dist] = { str = word, children = {} }
 	else
 		self:insert(word, some_node)
 	end	
@@ -68,8 +73,14 @@ function bk_tree:remove(word, node, parent, n)
 	local dist = self.dist_func(word, node.str)
 
 	if dist == 0 then
-		
+		parent.children[n] = nil
+		for i=1, #node.children do
+			self:insert(node.children[i].str, parent)
+		end
+		return true
 	end
+
+	return self:remove(word, node.children[dist], node, dist)
 	
 end
 
