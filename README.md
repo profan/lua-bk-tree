@@ -5,6 +5,8 @@ Implementation of bk-trees with Levenshtein distance in Lua, inspired by an arti
 
 Most commonly used for fuzzy string matching, for spellcheckers or similar.
 
+Note that this is still horrifyingly slow due to the naive levenshtein edit distance implementation, but that will be fixed shortly.
+
 Requirements
 ------------
 
@@ -22,8 +24,9 @@ Either with git clone as below or by downloading a zipball of the [latest...](ht
 
 Usage
 ------------
+
+### Function signatures:
 ```lua
-function signatures:
 
 -- distance function is levenshtein by default
 obj = imported:new(rootword, distance_function) 
@@ -31,7 +34,10 @@ obj:insert(word)
 obj:remove(word)
 obj:query(word, maximum_distance)
 -- returns all nodes with maximum_distance or less edit distance
+```
 
+### Working example
+```lua
 bktree = require "bk-tree"
 new_tree = bktree:new("root")
 new_tree:insert("root1")
