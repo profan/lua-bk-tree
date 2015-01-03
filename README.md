@@ -58,6 +58,9 @@ end
 
 -- will print beautiful
 ```
+
+Do inspect the bundled `example.lua` !
+
 TODO
 ------------
 
