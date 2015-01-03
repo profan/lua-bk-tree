@@ -33,10 +33,11 @@ local function lehvenshtein_dist(s1, s2)
 
 end
 
-function bk_tree:new(root_word)
+function bk_tree:new(root_word, dist_func)
 
 	local n_obj = {}
 	n_obj.root = { str = root_word, children = {} }
+	n_obj.dist_func = dist_func or lehvenshtein_dist
 
 	setmetatable(n_obj, self)
 	self.__index = self
@@ -49,7 +50,7 @@ function bk_tree:insert(word, node)
 
 	node = node or self.root
 
-	local dist = lehvenshtein_dist(word, node.str)
+	local dist = self.dist_func(word, node.str)
 	local some_node = node.children[dist]
 
 	if not some_node then
@@ -60,16 +61,24 @@ function bk_tree:insert(word, node)
 
 end
 
-function bk_tree:remove()
+function bk_tree:remove(word, node, parent, n)
+
+	node = node or self.root
+
+	local dist = self.dist_func(word, node.str)
+
+	if dist == 0 then
+		
+	end
 	
 end
 
 function bk_tree:query(word, n, node, matches)
 
-	matches = matches or {}
 	node = node or self.root
+	matches = matches or {}
 
-	local dist = lehvenshtein_dist(word, node.str)
+	local dist = self.dist_func(word, node.str)
 	if dist <= n then matches[#matches+1] = node.str end
 	
 	for i=1, #node.children do
