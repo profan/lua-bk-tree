@@ -26,8 +26,8 @@ Usage
 	new(rootword, distance_function) -- distance function is levenshtein by default
 	insert(word)
 	remove(word)
-	query(word, minimum_distance)
-	-- recursively queries the tree, returns all nodes with minimum_distance or less edit distance
+	query(word, maximum_distance)
+	-- returns all nodes with maximum_distance or less edit distance
 
 	bktree = require "bk-tree"
 	new_tree = bktree:new("root")
