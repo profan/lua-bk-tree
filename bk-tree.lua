@@ -15,35 +15,12 @@ local function min(...)
 
 end
 
-
---[[
-	Naive Recursive Levenshtein Distance 
-	http://en.wikipedia.org/wiki/Levenshtein_distance#Recursive
-]]--
-function levenshtein_dist(s1, s2) 
-
-	if s1:len() == 0 then return s2:len() end
-	if s2:len() == 0 then return s1:len() end
-
-	local cost
-	if s1:sub(#s1, #s1) == s2:sub(#s2, #s2) then
-		cost = 0
-	else
-		cost = 1
-	end
-
-	return min(levenshtein_dist(s1:sub(1, #s1-1), s2) + 1,
-				levenshtein_dist(s1, s2:sub(1, #s2-1)) + 1,
-				levenshtein_dist(s1:sub(1, #s1-1), s2:sub(1, #s2-1)) + cost)
-
-end
-
 --[[
 	Levenshtein Distance
 	Iterative with two matrix rows
 	http://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows
 ]]--
-function fast_levenshtein_dist(s1, s2)
+function bk_tree.levenshtein_dist(s1, s2)
 	
 	if s1 == s2 then return 0 end
 	if s1:len() == 0 then return s2:len() end
@@ -117,7 +94,7 @@ function bk_tree:new(root_word, dist_func)
 
 	local n_obj = {}
 	n_obj.root = { str = root_word, children = {} }
-	n_obj.dist_func = dist_func or fast_levenshtein_dist
+	n_obj.dist_func = dist_func or self.levenshtein_dist
 
 	setmetatable(n_obj, self)
 	self.__index = self
