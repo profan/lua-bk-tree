@@ -2,7 +2,23 @@ print ("Simple spellcheck example!")
 
 bktree = require "bk-tree"
 
-words = {"book", "bark", "car", "dog", "beauty", "beautiful", "definitely", "immediately", "accidentally"}
+words = {
+	"book", 
+	"bark", 
+	"car", 
+	"dog", 
+	"weird",
+	"really",
+	"beauty",
+	"vehicle",
+	"perceive",
+	"presence",
+	"original",
+	"beautiful", 
+	"definitely", 
+	"immediately", 
+	"accidentally"
+}
 
 tree = bktree:new("book")
 
