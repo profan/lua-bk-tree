@@ -22,11 +22,11 @@ end
 ]]--
 function levenshtein_dist(s1, s2) 
 
-	if (s1:len() == 0) then return s2:len() end
-	if (s2:len() == 0) then return s1:len() end
+	if s1:len() == 0 then return s2:len() end
+	if s2:len() == 0 then return s1:len() end
 
 	local cost
-	if (s1:sub(#s1, #s1) == s2:sub(#s2, #s2)) then
+	if s1:sub(#s1, #s1) == s2:sub(#s2, #s2) then
 		cost = 0
 	else
 		cost = 1
@@ -45,10 +45,10 @@ end
 ]]--
 function fast_levenshtein_dist(s1, s2)
 	
-	if (s1 == s2) then return 0 end
-	if (s1:len() == 0) then return s2:len() end
-	if (s2:len() == 0) then return s1:len() end
-	if (s1:len() > s2:len()) then s2, s1 = s1, s2 end
+	if s1 == s2 then return 0 end
+	if s1:len() == 0 then return s2:len() end
+	if s2:len() == 0 then return s1:len() end
+	if s1:len() > s2:len() then s2, s1 = s1, s2 end
 
 	t1, t2 = {}, {}
 
