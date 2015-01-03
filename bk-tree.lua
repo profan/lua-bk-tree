@@ -20,7 +20,7 @@ end
 	Naive Recursive Levenshstein Distance 
 	http://en.wikipedia.org/wiki/Levenshtein_distance#Recursive
 ]]--
-local function levenshtein_dist(s1, s2) 
+function levenshtein_dist(s1, s2) 
 
 	if (s1:len() == 0) then return s2:len() end
 	if (s2:len() == 0) then return s1:len() end
@@ -76,8 +76,8 @@ function bk_tree:remove(word, node, parent, n)
 
 	if dist == 0 then
 		parent.children[n] = nil
-		for i=1, #node.children do
-			self:insert(node.children[i].str, parent)
+		for k, v in pairs(node.children) do
+			self:insert(node.children[k].str, parent)
 		end
 		return true
 	end
@@ -96,13 +96,10 @@ function bk_tree:query(word, n, node, matches)
 	local dist = self.dist_func(word, node.str)
 	if dist <= n then matches[#matches+1] = node.str end
 	
-	local ds
-	local df = self.dist_func
-	for i=1, #node.children do
-		if node.children[i] then
-			ds = df(word, node.children[i].str)
-			if ds >= dist-n and ds <= dist+n then
-				self:query(word, n, node.children[i], matches)
+	for k, child in pairs(node.children) do
+		if child then
+			if k >= dist-n and k <= dist+n then
+				self:query(word, n, child, matches)
 			end
 		end
 	end
