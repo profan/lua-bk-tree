@@ -53,8 +53,6 @@ end
 
 function bk_tree:insert(word, node)
 
-	self.nodecount = self.nodecount or 1
-	self.nodecount = self.nodecount + 1
 	node = node or self.root
 
 	local dist = self.dist_func(word, node.str)
@@ -88,8 +86,6 @@ end
 
 function bk_tree:query(word, n, node, matches)
 
-	self.queries = self.queries or 1
-	self.queries = self.queries + 1
 	node = node or self.root
 	matches = matches or {}
 

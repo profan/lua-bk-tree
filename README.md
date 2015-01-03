@@ -39,21 +39,24 @@ obj:query(word, maximum_distance)
 ### Working example
 ```lua
 bktree = require "bk-tree"
-new_tree = bktree:new("root")
-new_tree:insert("root1")
-new_tree:insert("root2")
-new_tree:insert("root3")
 
-result = new_tree:query("root4", 1)
+tree = bktree:new("book")
+
+tree:insert("bark")
+tree:insert("car")
+tree:insert("dog")
+tree:insert("beauty")
+tree:insert("beautiful")
+tree:insert("definitely")
+tree:insert("immediately")
+tree:insert("accidentally")
+
+result = tree:query("beutiful", 1)
 for k, v in pairs(result) do
 	print (v)
 end
-	
--- output
-root
-root1
-root2
-root3
+
+-- will print beautiful
 ```
 TODO
 ------------
