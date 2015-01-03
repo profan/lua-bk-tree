@@ -22,8 +22,9 @@ Either with git clone as below or by downloading a zipball of the [latest...](ht
 
 Usage
 ------------
+
+### Function signatures:
 ```lua
-function signatures:
 
 -- distance function is levenshtein by default
 obj = imported:new(rootword, distance_function) 
@@ -31,7 +32,10 @@ obj:insert(word)
 obj:remove(word)
 obj:query(word, maximum_distance)
 -- returns all nodes with maximum_distance or less edit distance
+```
 
+### Working example
+```lua
 bktree = require "bk-tree"
 new_tree = bktree:new("root")
 new_tree:insert("root1")
