@@ -24,8 +24,9 @@ Usage
 ------------
 ```lua
 function signatures:
-	
-obj = imported:new(rootword, distance_function) -- distance function is levenshtein by default
+
+-- distance function is levenshtein by default
+obj = imported:new(rootword, distance_function) 
 obj:insert(word)
 obj:remove(word)
 obj:query(word, maximum_distance)
