@@ -7,17 +7,22 @@ local function concat_tables(t1, t2)
 end
 
 local function min(...)
+
 	local args = {...}
 	local min_val = args[1]
+
 	for i=1, #args do
 		if min_val > args[i] then
 			min_val = args[i]
 		end
 	end
+
 	return min_val
+
 end
 
-function lehvenshtein_dist(s1, s2) 
+local function lehvenshtein_dist(s1, s2) 
+
 	if (s1:len() == 0) then return s2:len() end
 	if (s2:len() == 0) then return s1:len() end
 
@@ -35,22 +40,30 @@ function lehvenshtein_dist(s1, s2)
 end
 
 function bk_tree:new(root_word)
+
 	local n_obj = {}
-	n_obj.root = {str = root_word, children = {}}
+	n_obj.root = { str = root_word, children = {} }
+
 	setmetatable(n_obj, self)
 	self.__index = self
+
 	return n_obj
+
 end
 
 function bk_tree:insert(word, node)
+
 	node = node or self.root
+
 	local dist = lehvenshtein_dist(word, node.str)
 	local some_node = node.children[dist]
+
 	if not some_node then
 		node.children[dist] = {str = word, children = {}}
 	else
 		self:insert(word, some_node)
 	end	
+
 end
 
 function bk_tree:remove()
@@ -58,8 +71,10 @@ function bk_tree:remove()
 end
 
 function bk_tree:query(word, n, node, matches)
+
 	matches = matches or {}
 	node = node or self.root
+
 	local dist = lehvenshtein_dist(word, node.str)
 	if dist <= n then matches[#matches+1] = node.str end
 	
@@ -68,7 +83,9 @@ function bk_tree:query(word, n, node, matches)
 			self:query(word, n, node.children[i], matches)
 		end
 	end
+
 	return matches
+
 end
 
 return bk_tree
