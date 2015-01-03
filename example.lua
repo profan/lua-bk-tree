@@ -22,6 +22,8 @@ words = {
 
 tree = bktree:new("book")
 
+tree:debug()
+
 print("Available words:")
 for k, word in pairs(words) do
 	print(" - " .. word)
@@ -50,3 +52,5 @@ else
 	print("no results!")
 
 end
+
+tree:print()

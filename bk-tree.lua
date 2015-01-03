@@ -78,6 +78,44 @@ function fast_levenshtein_dist(s1, s2)
 	
 end
 
+function bk_tree:hook()
+
+	local name, callee = debug.getlocal(2, 1)
+	local f_name = debug.getinfo(2, "n").name
+
+	if f_name == "insert" then
+		callee.stats.nodes = callee.stats.nodes + 1
+	elseif f_name == "remove" then
+		callee.stats.nodes = callee.stats.nodes - 1
+	elseif f_name == "query" then
+		callee.stats.queries = callee.stats.queries + 1
+	end
+
+end
+
+function bk_tree:debug()
+
+	self:reset_stats()
+	debug.sethook(self.hook, "c")
+
+end
+
+function bk_tree:reset_stats()
+
+	self.stats = { queries = 0, nodes = 0 }
+
+end
+
+function bk_tree:print()
+
+	print("\nNodes: " .. self.stats.nodes)
+	print("Queries: " .. self.stats.queries)
+	print("Nodes Queried: " .. self.stats.queries/self.stats.nodes*100 .. "%\n")
+	
+	self:reset_stats()
+
+end
+
 function bk_tree:new(root_word, dist_func)
 
 	local n_obj = {}
