@@ -53,4 +53,4 @@ else
 
 end
 
-tree:print()
+tree:print_stats()

@@ -100,7 +100,7 @@ function bk_tree:debug()
 
 end
 
-function bk_tree:print()
+function bk_tree:print_stats()
 
 	print("\nNodes: " .. self.stats.nodes)
 	print("Queries: " .. self.stats.queries)
