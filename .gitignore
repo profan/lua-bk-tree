@@ -2,3 +2,4 @@
 *.lua
 !bk-tree.lua
 !example.lua
+*.txt

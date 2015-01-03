@@ -3,7 +3,6 @@ print ("\nSimple spellcheck example! \n")
 bktree = require "bk-tree"
 
 words = {
-	"book",
 	"bark", 
 	"car", 
 	"dog", 
@@ -21,14 +20,19 @@ words = {
 }
 
 tree = bktree:new("book")
-
 tree:debug()
 
-print("Available words:")
+local x = os.clock()
+
+print("Available words: " .. #words)
 for k, word in pairs(words) do
 	print(" - " .. word)
 	tree:insert(word)
 end
+
+local t = os.clock() - x
+print("elapsed time: " .. t .. " s")
+print(" - time per word: " .. (t/#words)+1 .. " s")
 
 io.write("input an incorrectly spelled word to test: ")
 io.flush()
