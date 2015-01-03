@@ -3,7 +3,7 @@ print ("\nSimple spellcheck example! \n")
 bktree = require "bk-tree"
 
 words = {
-	"book", 
+	"book",
 	"bark", 
 	"car", 
 	"dog", 

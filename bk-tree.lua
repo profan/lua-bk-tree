@@ -44,6 +44,10 @@ end
 	http://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows
 ]]--
 function fast_levenshtein_dist(s1, s2)
+
+	if (s1:len() > s2:len()) then
+		s2, s1 = s1, s2
+	end
 	
 	if (s1 == s2) then return 0 end
 	if (s1:len() == 0) then return s2:len() end
@@ -130,10 +134,13 @@ function bk_tree:insert(word, node)
 	node = node or self.root
 
 	local dist = self.dist_func(word, node.str)
+	if dist == 0 then return false end
+
 	local some_node = node.children[dist]
 
 	if not some_node then
 		node.children[dist] = { str = word, children = {} }
+		return true
 	else
 		self:insert(word, some_node)
 	end	
@@ -167,7 +174,7 @@ function bk_tree:query(word, n, node, matches)
 	if dist <= n then matches[#matches+1] = node.str end
 	
 	for k, child in pairs(node.children) do
-		if child then
+		if child ~= nil then
 			if k >= dist-n and k <= dist+n then
 				self:query(word, n, child, matches)
 			end
