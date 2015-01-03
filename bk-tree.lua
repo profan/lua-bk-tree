@@ -17,7 +17,7 @@ end
 
 
 --[[
-	Naive Recursive Levenshstein Distance 
+	Naive Recursive Levenshtein Distance 
 	http://en.wikipedia.org/wiki/Levenshtein_distance#Recursive
 ]]--
 function levenshtein_dist(s1, s2) 
@@ -58,8 +58,8 @@ function fast_levenshtein_dist(s1, s2)
 	local cost
 	for i=1, #s1 do
 		
-		t2[1] = i + 1	
-
+		t2[1] = i + 1
+		
 		for j=1, #s2 do
 			cost = (s1:sub(i,i) == s2:sub(j,j) and 0) or 1
 			t2[j + 1] = min( 
