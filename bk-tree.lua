@@ -88,7 +88,7 @@ function bk_tree:hook()
 			don't add to the insert/remove counters. ]]--
 
 	if f_name == "insert" and p_name ~= "insert" then
-			callee.stats.nodes = callee.stats.nodes + 1
+		callee.stats.nodes = callee.stats.nodes + 1
 	elseif f_name == "remove" and p_name ~= "remove" then
 		callee.stats.nodes = callee.stats.nodes - 1
 	elseif f_name == "query" then
