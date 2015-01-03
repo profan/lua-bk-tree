@@ -11,7 +11,7 @@ Requirements
 ------------
 
 * Lua >= 5.1
-* 
+
 Running the example program (a small spellchecker)
 
 	lua example.lua
