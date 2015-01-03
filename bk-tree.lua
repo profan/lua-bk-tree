@@ -82,10 +82,13 @@ function bk_tree:hook()
 
 	local name, callee = debug.getlocal(2, 1)
 	local f_name = debug.getinfo(2, "n").name
+	local p_name = debug.getinfo(3, "n").name
+	--[[ previous function in the callstack, if called from the same place,
+			don't add to the insert/remove counters. ]]--
 
-	if f_name == "insert" then
-		callee.stats.nodes = callee.stats.nodes + 1
-	elseif f_name == "remove" then
+	if f_name == "insert" and p_name ~= "insert" then
+			callee.stats.nodes = callee.stats.nodes + 1
+	elseif f_name == "remove" and p_name ~= "remove" then
 		callee.stats.nodes = callee.stats.nodes - 1
 	elseif f_name == "query" then
 		callee.stats.queries = callee.stats.queries + 1
@@ -95,7 +98,7 @@ end
 
 function bk_tree:debug()
 
-	self.stats = { nodes = 0, queries = 0 }
+	self.stats = { nodes = 1, queries = 0 }
 	debug.sethook(self.hook, "c")
 
 end
