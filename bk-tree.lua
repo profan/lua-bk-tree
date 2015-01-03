@@ -115,9 +115,9 @@ function bk_tree:insert(word, node)
 	if not some_node then
 		node.children[dist] = { str = word, children = {} }
 		return true
-	else
-		self:insert(word, some_node)
 	end	
+
+	return self:insert(word, some_node)
 
 end
 
