@@ -1,4 +1,4 @@
-print ("Simple spellcheck example!")
+print ("\nSimple spellcheck example! \n")
 
 bktree = require "bk-tree"
 
@@ -22,13 +22,13 @@ words = {
 
 tree = bktree:new("book")
 
-print("available words.")
-for i=2, #words do
-	print(words[i])
-	tree:insert(words[i])
+print("Available words:")
+for k, word in pairs(words) do
+	print(" - " .. word)
+	tree:insert(word)
 end
 
-io.write("input a word to test: ")
+io.write("input an incorrectly spelled word to test: ")
 io.flush()
 word = io.read()
 
@@ -42,7 +42,7 @@ if result then
 
 	print("candidates: ")
 	for k, v in pairs(result) do
-	    print (v)
+	    print (" - " .. v)
 	end
 
 else
