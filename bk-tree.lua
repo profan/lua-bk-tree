@@ -38,11 +38,51 @@ function levenshtein_dist(s1, s2)
 
 end
 
+--[[
+	Levenshtein Distance
+	Iterative with two matrix rows
+	http://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows
+]]--
+function fast_levenshtein_dist(s1, s2)
+	
+	if (s1 == s2) then return 0 end
+	if (s1:len() == 0) then return s2:len() end
+	if (s2:len() == 0) then return s1:len() end
+
+	t1, t2 = {}, {}
+
+	for i=1, #s2+1 do
+		t1[i] = i
+	end
+
+	local cost
+	for i=1, #s1 do
+		
+		t2[1] = i + 1	
+
+		for j=1, #s2 do
+			cost = (s1:sub(i,i) == s2:sub(j,j) and 0) or 1
+			t2[j + 1] = min( 
+				t2[j] + 1,
+				t1[j + 1] + 1,
+				t1[j] + cost)
+		end
+
+		for j=1, #t1 do
+			t1[j] = t2[j]
+		end
+
+	end
+
+	return t2[#s2]
+	
+end
+
 function bk_tree:new(root_word, dist_func)
 
 	local n_obj = {}
 	n_obj.root = { str = root_word, children = {} }
-	n_obj.dist_func = dist_func or levenshtein_dist
+	n_obj.dist_func = dist_func or fast_levenshtein_dist
 
 	setmetatable(n_obj, self)
 	self.__index = self
