@@ -20,7 +20,7 @@ words = {
 	"accidentally"
 }
 
-tree = bktree:new("book", fast_levenshtein_dist)
+tree = bktree:new("book")
 
 print("Available words:")
 for k, word in pairs(words) do
