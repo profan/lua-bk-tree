@@ -53,6 +53,8 @@ end
 
 function bk_tree:insert(word, node)
 
+	self.nodecount = self.nodecount or 1
+	self.nodecount = self.nodecount + 1
 	node = node or self.root
 
 	local dist = self.dist_func(word, node.str)
@@ -86,15 +88,22 @@ end
 
 function bk_tree:query(word, n, node, matches)
 
+	self.queries = self.queries or 1
+	self.queries = self.queries + 1
 	node = node or self.root
 	matches = matches or {}
 
 	local dist = self.dist_func(word, node.str)
 	if dist <= n then matches[#matches+1] = node.str end
 	
+	local ds
+	local df = self.dist_func
 	for i=1, #node.children do
-		if i >= dist-n and i <= dist+n and node.children[i] then
-			self:query(word, n, node.children[i], matches)
+		if node.children[i] then
+			ds = df(word, node.children[i].str)
+			if ds >= dist-n and ds <= dist+n then
+				self:query(word, n, node.children[i], matches)
+			end
 		end
 	end
 
