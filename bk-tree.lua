@@ -29,7 +29,7 @@ end
 --- Levenshtein distance function
 -- @param s1 string
 -- @param s2 string
--- @returns the levenshtein distance
+-- @treturn number the levenshtein distance
 -- @within Metrics
 function bk_tree.levenshtein_dist(s1, s2)
 	
@@ -151,7 +151,7 @@ end
 --------------------------
 --- Inserts word into tree.
 -- @string word
--- @return true if inserted, false if word already exists in tree
+-- @treturn bool true if inserted, false if word already exists in tree
 --- @usage
 -- bktree = require "bk-tree"
 -- local tree = bktree:new("root")
@@ -177,7 +177,7 @@ end
 ---------------------------
 --- Removes word from tree
 -- @string word
--- @return true if succeeded, false if word doesn't exist in tree.
+-- @treturn bool true if succeeded, false if word doesn't exist in tree.
 --- @usage
 -- bktree = require "bk-tree"
 -- local tree = bktree:new("root")
@@ -204,7 +204,7 @@ end
 --- Query the tree for a word
 -- @string word
 -- @param n max edit distance to use when querying
--- @return table with matching words, empty table if no matches
+-- @treturn {string....} table with matching words, empty table if no matches
 --- @usage
 -- bktree = require "bk-tree"
 -- local tree = bktree:new("word")
