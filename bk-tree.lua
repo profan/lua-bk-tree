@@ -71,34 +71,18 @@ function bk_tree.hook(param)
 
 	--[[ previous function in the callstack, if called from the same place,
 			don't add to the insert/remove counters. ]]--
+	local name, callee = debug.getlocal(2, 1)
+	local f_name = debug.getinfo(2, "n").name
+	local p_name = debug.getinfo(3, "n").name
 
-	if param == "return" then
-
-		local f_name = debug.getinfo(2, "n").name
-		if f_name == "query" and last_callee.stats.qcount > 0 then
-			last_callee.stats.qcount = last_callee.stats.qcount - 1
-		elseif f_name == "query" and last_callee.stats.qcount == 0 then
-			last_callee:print_stats()
-		end
-
-	elseif param == "call" or param == "tailcall" then
-
-		local name, callee = debug.getlocal(2, 1)
-		local f_name = debug.getinfo(2, "n").name
-		local p_name = debug.getinfo(3, "n").name
-
-		if f_name == "insert" and p_name ~= "insert" then
-			callee.stats.nodes = callee.stats.nodes + 1
-			last_callee = callee
-		elseif f_name == "remove" and p_name ~= "remove" then
-			callee.stats.nodes = callee.stats.nodes - 1
-			last_callee = callee
-		elseif f_name == "query" and p_name == "query" then
-			callee.stats.queries = callee.stats.queries + 1
-			callee.stats.qcount = callee.stats.qcount + 1
-		end
-
+	if f_name == "insert" and p_name ~= "insert" then
+		callee.stats.nodes = callee.stats.nodes + 1
+	elseif f_name == "remove" and p_name ~= "remove" then
+		callee.stats.nodes = callee.stats.nodes - 1
+	elseif f_name == "query" and p_name == "query" then
+		callee.stats.queries = callee.stats.queries + 1
 	end
+
 end
 
 --- Hooks debugging into tree execution.
@@ -112,6 +96,7 @@ end
 -- tree:insert("beautiful")
 -- tree:insert("definitely")
 -- local result = tree:query("definately", 3)
+-- tree:print_stats()
 --
 -- -- output
 -- Nodes: 4
@@ -119,15 +104,14 @@ end
 -- Nodes Queried: 75%
 function bk_tree:debug()
 
-	self.stats = { nodes = 1, queries = 0, qcount = 0 }
-	debug.sethook(self.hook, "cr")
+	self.stats = { nodes = 1, queries = 0 }
+	debug.sethook(self.hook, "c")
 
 end
 
 --- Print execution stats.
--- Function runs after every finished query if @{debug} was set, 
--- prints nodes queried and total nodes, as well as a fraction of 
--- nodes visited to satisfy the query.
+-- Prints nodes queried and total nodes, as well as a fraction of 
+-- nodes visited to satisfy the query, resets the counter of nodes queried when called.
 -- @within debug
 -- @see print_stats
 function bk_tree:print_stats()
@@ -136,7 +120,6 @@ function bk_tree:print_stats()
 	print("Queries: " .. self.stats.queries)
 	print("Nodes Queried: " .. self.stats.queries/self.stats.nodes*100 .. "%\n")
 	self.stats.queries = 0
-	self.stats.qcount = 0
 
 end
 
