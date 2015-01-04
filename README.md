@@ -24,24 +24,22 @@ Either with git clone as below or by downloading a zipball of the [latest...](ht
 		
 		git clone https://github.com/Profan/bk-tree.git
 
-Usage
-------------
 
-### Documentation
+Documentation
+------------
 * [http://profan.github.io/bk-tree/](http://profan.github.io/bk-tree/)
 
-### Working example
+
+Usage Example
+------------
+
+Gives you the words in the tree within 1 [edit distance](http://en.wikipedia.org/wiki/Edit_distance), in this case `beautiful`
+
 ```lua
 bktree = require "bk-tree"
 
 tree = bktree:new("book")
 
-tree:insert("bark")
-tree:insert("car")
-tree:insert("dog")
-tree:insert("rhyme")
-tree:insert("really")
-tree:insert("beauty")
 tree:insert("perceive")
 tree:insert("original")
 tree:insert("beautiful")
@@ -51,10 +49,6 @@ result = tree:query("beutiful", 1)
 for k, v in pairs(result) do
 	print (v)
 end
-
--- gives you the word in the three within 1 edit distance,
---  in this case: beautiful
-
 ```
 
 Do inspect the bundled examples !
