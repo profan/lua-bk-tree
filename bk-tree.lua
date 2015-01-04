@@ -115,7 +115,7 @@ end
 -- Prints nodes queried and total nodes, as well as a fraction of 
 -- nodes visited to satisfy the query, resets the counter of nodes queried when called.
 -- @within Debug
--- @see print_stats
+-- @see debug
 function bk_tree:print_stats()
 
 	print("\nNodes: " .. self.stats.nodes)
