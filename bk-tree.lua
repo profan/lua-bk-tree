@@ -1,3 +1,13 @@
+---------------------------
+-- bk-tree datastructure
+--
+-- http://en.wikipedia.org/wiki/BK-tree
+-- @module bk-tree
+-- @author Robin Hübner
+-- robinhubner@gmail.com
+-- @release version 1.0
+-- @license MIT
+
 local bk_tree = {}
 
 local function min(...)
@@ -15,11 +25,12 @@ local function min(...)
 
 end
 
---[[
-	Levenshtein Distance
-	Iterative with two matrix rows
-	http://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows
-]]--
+----------------------------------
+--- Levenshtein distance function
+-- @param s1 string
+-- @param s2 string
+-- @returns the levenshtein distance
+-- @within Metrics
 function bk_tree.levenshtein_dist(s1, s2)
 	
 	if s1 == s2 then return 0 end
@@ -56,40 +67,89 @@ function bk_tree.levenshtein_dist(s1, s2)
 	
 end
 
-function bk_tree:hook()
+function bk_tree.hook(param)
 
-	local name, callee = debug.getlocal(2, 1)
-	local f_name = debug.getinfo(2, "n").name
-	local p_name = debug.getinfo(3, "n").name
 	--[[ previous function in the callstack, if called from the same place,
 			don't add to the insert/remove counters. ]]--
 
-	if f_name == "insert" and p_name ~= "insert" then
-		callee.stats.nodes = callee.stats.nodes + 1
-	elseif f_name == "remove" and p_name ~= "remove" then
-		callee.stats.nodes = callee.stats.nodes - 1
-	elseif f_name == "query" then
-		callee.stats.queries = callee.stats.queries + 1
-	end
+	if param == "return" then
 
+		local f_name = debug.getinfo(2, "n").name
+		if f_name == "query" and last_callee.stats.qcount > 0 then
+			last_callee.stats.qcount = last_callee.stats.qcount - 1
+		elseif f_name == "query" and last_callee.stats.qcount == 0 then
+			last_callee:print_stats()
+		end
+
+	elseif param == "call" or param == "tailcall" then
+
+		local name, callee = debug.getlocal(2, 1)
+		local f_name = debug.getinfo(2, "n").name
+		local p_name = debug.getinfo(3, "n").name
+
+		if f_name == "insert" and p_name ~= "insert" then
+			callee.stats.nodes = callee.stats.nodes + 1
+			last_callee = callee
+		elseif f_name == "remove" and p_name ~= "remove" then
+			callee.stats.nodes = callee.stats.nodes - 1
+			last_callee = callee
+		elseif f_name == "query" and p_name == "query" then
+			callee.stats.queries = callee.stats.queries + 1
+			callee.stats.qcount = callee.stats.qcount + 1
+		end
+
+	end
 end
 
+--- Hooks debugging into tree execution.
+-- Keeps track of number of nodes created, queries made.
+-- @within debug
+--- @usage
+-- bktree = require "bk-tree"
+-- tree = bktree:new("word")
+-- tree:debug()
+-- tree:insert("perceive")
+-- tree:insert("beautiful")
+-- tree:insert("definitely")
+-- local result = tree:query("definately", 3)
+--
+-- -- output
+-- Nodes: 4
+-- Queries: 3
+-- Nodes Queried: 75%
 function bk_tree:debug()
 
-	self.stats = { nodes = 1, queries = 0 }
-	debug.sethook(self.hook, "c")
+	self.stats = { nodes = 1, queries = 0, qcount = 0 }
+	debug.sethook(self.hook, "cr")
 
 end
 
+--- Print execution stats.
+-- Function runs after every finished query if @{debug} was set, 
+-- prints nodes queried and total nodes, as well as a fraction of 
+-- nodes visited to satisfy the query.
+-- @within debug
+-- @see print_stats
 function bk_tree:print_stats()
 
 	print("\nNodes: " .. self.stats.nodes)
 	print("Queries: " .. self.stats.queries)
 	print("Nodes Queried: " .. self.stats.queries/self.stats.nodes*100 .. "%\n")
 	self.stats.queries = 0
+	self.stats.qcount = 0
 
 end
 
+--------------------------
+--- Creates a new bk-tree.
+-- @constructor
+-- @string root_word the root of the new tree
+-- @param[opt=levenshtein_dist] dist_func the distance function used
+-- @see levenshtein_dist
+-- @return the new bk-tree instance
+--- @usage
+-- bktree = require "bk-tree"
+-- local tree = bktree:new("word")
 function bk_tree:new(root_word, dist_func)
 
 	local n_obj = {}
@@ -103,6 +163,14 @@ function bk_tree:new(root_word, dist_func)
 
 end
 
+--------------------------
+--- Inserts word into tree.
+-- @string word
+-- @return true if inserted, false if word already exists in tree
+--- @usage
+-- bktree = require "bk-tree"
+-- local tree = bktree:new("root")
+-- local success = tree:insert("other_word")
 function bk_tree:insert(word, node)
 
 	node = node or self.root
@@ -121,6 +189,14 @@ function bk_tree:insert(word, node)
 
 end
 
+---------------------------
+--- Removes word from tree
+-- @string word
+-- @return true if succeeded, false if word doesn't exist in tree.
+--- @usage
+-- bktree = require "bk-tree"
+-- local tree = bktree:new("root")
+-- local success = tree:remove("root")
 function bk_tree:remove(word, node, parent, n)
 
 	node = node or self.root
@@ -139,6 +215,18 @@ function bk_tree:remove(word, node, parent, n)
 	
 end
 
+--------------------------------
+--- Query the tree for a word
+-- @string word
+-- @param n max edit distance to use when querying
+-- @return table with matching words, empty table if no matches
+--- @usage
+-- bktree = require "bk-tree"
+-- local tree = bktree:new("word")
+-- tree:insert("hello")
+-- tree:insert("goodbye")
+-- tree:insert("woop")
+-- local result = tree:query("woop", 1)
 function bk_tree:query(word, n, node, matches)
 
 	node = node or self.root
