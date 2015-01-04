@@ -89,7 +89,7 @@ end
 -- Keeps track of number of nodes created, queries made,
 -- note that this must be run directly after tree is created
 -- in order to get correct information.
--- @within debug
+-- @within Debug
 --- @usage
 -- bktree = require "bk-tree"
 -- tree = bktree:new("word")
@@ -114,7 +114,7 @@ end
 --- Print execution stats.
 -- Prints nodes queried and total nodes, as well as a fraction of 
 -- nodes visited to satisfy the query, resets the counter of nodes queried when called.
--- @within debug
+-- @within Debug
 -- @see print_stats
 function bk_tree:print_stats()
 
