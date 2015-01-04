@@ -4,3 +4,4 @@
 !example.lua
 *.txt
 docs/
+!examples/*
