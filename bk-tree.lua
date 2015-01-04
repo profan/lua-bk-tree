@@ -27,8 +27,8 @@ end
 
 ----------------------------------
 --- Levenshtein distance function
--- @param s1 string
--- @param s2 string
+-- @tparam string s1
+-- @tparam string s2
 -- @treturn number the levenshtein distance
 -- @within Metrics
 function bk_tree.levenshtein_dist(s1, s2)
@@ -129,7 +129,7 @@ end
 --- Creates a new bk-tree.
 -- @constructor
 -- @string root_word the root of the new tree
--- @param[opt=levenshtein_dist] dist_func the distance function used
+-- @tparam[opt=levenshtein_dist] function dist_func the distance function used
 -- @see levenshtein_dist
 -- @return the new bk-tree instance
 --- @usage
@@ -203,7 +203,7 @@ end
 --------------------------------
 --- Query the tree for a word
 -- @string word
--- @param n max edit distance to use when querying
+-- @tparam number n max edit distance to use when querying
 -- @treturn {string....} table with matching words, empty table if no matches
 --- @usage
 -- bktree = require "bk-tree"
