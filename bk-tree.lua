@@ -86,7 +86,9 @@ function bk_tree.hook(param)
 end
 
 --- Hooks debugging into tree execution.
--- Keeps track of number of nodes created, queries made.
+-- Keeps track of number of nodes created, queries made,
+-- note that this must be run directly after tree is created
+-- in order to get correct information.
 -- @within debug
 --- @usage
 -- bktree = require "bk-tree"
