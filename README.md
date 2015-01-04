@@ -10,9 +10,9 @@ Requirements
 
 * Lua >= 5.1
 
-Running the example program (a small spellchecker)
+Running one of the example programs (a small spellchecker)
 
-	lua example.lua
+	lua example/spelling.lua
 
 Running the tests
 
@@ -27,16 +27,8 @@ Either with git clone as below or by downloading a zipball of the [latest...](ht
 Usage
 ------------
 
-### Function signatures:
-```lua
-
--- distance function is levenshtein by default
-obj = imported:new(rootword, distance_function) 
-obj:insert(word)
-obj:remove(word)
-obj:query(word, maximum_distance)
--- returns all nodes with maximum_distance or less edit distance
-```
+### Documentation
+* [http://profan.github.io/bk-tree/](http://profan.github.io/bk-tree/)
 
 ### Working example
 ```lua
@@ -55,14 +47,17 @@ tree:insert("original")
 tree:insert("beautiful")
 
 result = tree:query("beutiful", 1)
+
 for k, v in pairs(result) do
 	print (v)
 end
 
--- will print beautiful
+-- gives you the word in the three within 1 edit distance,
+--  in this case: beautiful
+
 ```
 
-Do inspect the bundled `example.lua` !
+Do inspect the bundled examples !
 
 TODO
 ------------
