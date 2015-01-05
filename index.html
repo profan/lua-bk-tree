@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Metrics">Metrics</a></li>
+<li><a href="#Debug">Debug</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>bk-tree</strong></li>
+</ul>
+<h2>Examples</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="examples/spelling.lua.html">spelling.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>bk-tree</code></h1>
+<p>bk-tree datastructure</p>
+<p> http://en.wikipedia.org/wiki/BK-tree</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Release</strong>: version 1.0</li>
+        <li><strong>License</strong>: MIT</li>
+        <li><strong>Author</strong>: Robin Hübner
+ robinhubner@gmail.com</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#bk_tree:new">bk_tree:new (root_word[, dist_func=levenshtein_dist])</a></td>
+	<td class="summary">Creates a new bk-tree.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bk_tree:insert">bk_tree:insert (word)</a></td>
+	<td class="summary">Inserts word into tree.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bk_tree:remove">bk_tree:remove (word)</a></td>
+	<td class="summary">Removes word from tree</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bk_tree:query">bk_tree:query (word, n)</a></td>
+	<td class="summary">Query the tree for a word</td>
+	</tr>
+</table>
+<h2><a href="#Metrics">Metrics</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#bk_tree.levenshtein_dist">bk_tree.levenshtein_dist (s1, s2)</a></td>
+	<td class="summary">Levenshtein distance function</td>
+	</tr>
+</table>
+<h2><a href="#Debug">Debug</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#bk_tree:debug">bk_tree:debug ()</a></td>
+	<td class="summary">Hooks debugging into tree execution.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bk_tree:print_stats">bk_tree:print_stats ()</a></td>
+	<td class="summary">Print execution stats.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "bk_tree:new"></a>
+    <strong>bk_tree:new (root_word[, dist_func=levenshtein_dist])</strong>
+    </dt>
+    <dd>
+    Creates a new bk-tree.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">root_word</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+         the root of the new tree
+        </li>
+        <li><span class="parameter">dist_func</span>
+            <span class="types"><span class="type">function</span></span>
+         the distance function used
+         (<em>default</em> levenshtein_dist)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the new bk-tree instance
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#bk_tree.levenshtein_dist">levenshtein_dist</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+ <span class="keyword">local</span> tree = bktree:new(<span class="string">"word"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "bk_tree:insert"></a>
+    <strong>bk_tree:insert (word)</strong>
+    </dt>
+    <dd>
+    Inserts word into tree.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">word</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        true if inserted, false if word already exists in tree
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+ <span class="keyword">local</span> tree = bktree:new(<span class="string">"root"</span>)
+ <span class="keyword">local</span> success = tree:insert(<span class="string">"other_word"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "bk_tree:remove"></a>
+    <strong>bk_tree:remove (word)</strong>
+    </dt>
+    <dd>
+    Removes word from tree
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">word</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        true if succeeded, false if word doesn't exist in tree.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+ <span class="keyword">local</span> tree = bktree:new(<span class="string">"root"</span>)
+ <span class="keyword">local</span> success = tree:remove(<span class="string">"root"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "bk_tree:query"></a>
+    <strong>bk_tree:query (word, n)</strong>
+    </dt>
+    <dd>
+    Query the tree for a word
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">word</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+         max edit distance to use when querying
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">{string....}</span></span>
+        table with matching words, empty table if no matches
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+ <span class="keyword">local</span> tree = bktree:new(<span class="string">"word"</span>)
+ tree:insert(<span class="string">"hello"</span>)
+ tree:insert(<span class="string">"goodbye"</span>)
+ tree:insert(<span class="string">"woop"</span>)
+ <span class="keyword">local</span> result = tree:query(<span class="string">"woop"</span>, <span class="number">1</span>)</pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2><a name="Metrics"></a>Metrics</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "bk_tree.levenshtein_dist"></a>
+    <strong>bk_tree.levenshtein_dist (s1, s2)</strong>
+    </dt>
+    <dd>
+    Levenshtein distance function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s1</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+
+        </li>
+        <li><span class="parameter">s2</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        the levenshtein distance
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Debug"></a>Debug</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "bk_tree:debug"></a>
+    <strong>bk_tree:debug ()</strong>
+    </dt>
+    <dd>
+    Hooks debugging into tree execution.
+ Keeps track of number of nodes created, queries made,
+ note that this must be run directly after tree is created
+ in order to get correct information.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+ tree = bktree:new(<span class="string">"word"</span>)
+ tree:<span class="global">debug</span>()
+ tree:insert(<span class="string">"perceive"</span>)
+ tree:insert(<span class="string">"beautiful"</span>)
+ tree:insert(<span class="string">"definitely"</span>)
+ <span class="keyword">local</span> result = tree:query(<span class="string">"definately"</span>, <span class="number">3</span>)
+ tree:print_stats()
+
+ <span class="comment">-- output
+</span> Nodes: <span class="number">4</span>
+ Queries: <span class="number">3</span>
+ Nodes Queried: <span class="number">75</span>%</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "bk_tree:print_stats"></a>
+    <strong>bk_tree:print_stats ()</strong>
+    </dt>
+    <dd>
+    Print execution stats.
+ Prints nodes queried and total nodes, as well as a fraction of
+ nodes visited to satisfy the query, resets the counter of nodes queried when called.
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#bk_tree:debug">debug</a>
+    </ul>
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2015-01-05 00:58:16 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
