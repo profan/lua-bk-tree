@@ -25,9 +25,8 @@ Either with git clone as below or by downloading a zipball of the [latest...](ht
 		git clone https://github.com/Profan/bk-tree.git
 
 
-Documentation
+[Documentation](http://profan.github.io/bk-tree/)
 ------------
-* [http://profan.github.io/bk-tree/](http://profan.github.io/bk-tree/)
 
 
 Usage Example
