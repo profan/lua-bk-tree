@@ -69,17 +69,17 @@ end
 
 function bk_tree.hook(param)
 
+	local name, callee = debug.getlocal(2, 1)
+	local f = debug.getinfo(2, "f").func
+	local p = debug.getinfo(3, "f").func
 	--[[ previous function in the callstack, if called from the same place,
 			don't add to the insert/remove counters. ]]--
-	local name, callee = debug.getlocal(2, 1)
-	local f_name = debug.getinfo(2, "n").name
-	local p_name = debug.getinfo(3, "n").name
 
-	if f_name == "insert" and p_name ~= "insert" then
+	if f == bk_tree.insert and p == bk_tree.insert then
 		callee.stats.nodes = callee.stats.nodes + 1
-	elseif f_name == "remove" and p_name ~= "remove" then
+	elseif f == bk_tree.remove and p ~= bk_tree.remove then
 		callee.stats.nodes = callee.stats.nodes - 1
-	elseif f_name == "query" and p_name == "query" then
+	elseif f == bk_tree.query and p == bk_tree.query then
 		callee.stats.queries = callee.stats.queries + 1
 	end
 
