@@ -10,6 +10,14 @@
 
 local bk_tree = {}
 
+local function lazy_copy(t1)
+	local cp = {}
+	for k, v in pairs(t1) do
+		cp[k] = v
+	end
+	return cp
+end
+
 local function min(...)
 
 	local args = {...}
@@ -123,6 +131,15 @@ function bk_tree:print_stats()
 	print("Nodes Queried: " .. self.stats.queries/self.stats.nodes*100 .. "%\n")
 	self.stats.queries = 0
 
+end
+
+--- Fetch execution stats.
+-- Returns a copy of the execution stats that @{print_stats} would print, requires debug to have been enabled
+-- to not just return defaults. Useful if you want to profile things.
+-- @within Debug
+-- @return {key = value,...}
+function bk_tree:get_stats()
+	return lazy_copy(self.stats)
 end
 
 ---------------------------
