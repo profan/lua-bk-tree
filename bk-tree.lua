@@ -191,7 +191,7 @@ function bk_tree:insert(word, node)
 
 end
 
---------------------------------
+---------------------------------
 --- Remove a word from the tree.
 -- @string word
 -- @treturn bool true if succeeded, false if word doesn't exist in tree.
@@ -213,7 +213,10 @@ function bk_tree:remove(word, node, parent, n)
 		return true
 	end
 
-	return self:remove(word, node.children[dist], node, dist)
+	local next_node = node.children[dist]
+	if not next_node then return false end
+
+	return self:remove(word, next_node, node, dist)
 	
 end
 
