@@ -22,10 +22,10 @@ Downloading the source
 ------------
 Either with git clone as below or by downloading a zipball of the [latest...](https://github.com/Profan/bk-tree/archive/master.zip)
 		
-		git clone https://github.com/Profan/bk-tree.git
+		git clone https://github.com/Profan/lua-bk-tree.git
 
 
-[Documentation](http://profan.github.io/bk-tree/)
+[Documentation](http://profan.github.io/lua-bk-tree/)
 ------------
 
 
