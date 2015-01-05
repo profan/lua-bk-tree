@@ -204,7 +204,7 @@ end
 --- Query the tree for a word
 -- @string word
 -- @tparam number n max edit distance to use when querying
--- @treturn {string....} table with matching words, empty table if no matches
+-- @treturn {string,....} table with matching words, empty table if no matches
 --- @usage
 -- bktree = require "bk-tree"
 -- local tree = bktree:new("word")
