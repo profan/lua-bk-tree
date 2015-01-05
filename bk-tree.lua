@@ -26,7 +26,7 @@ local function min(...)
 end
 
 ----------------------------------
---- Levenshtein distance function
+--- Levenshtein distance function.
 -- @tparam string s1
 -- @tparam string s2
 -- @treturn number the levenshtein distance
@@ -125,7 +125,7 @@ function bk_tree:print_stats()
 
 end
 
---------------------------
+---------------------------
 --- Creates a new bk-tree.
 -- @constructor
 -- @string root_word the root of the new tree
@@ -148,8 +148,8 @@ function bk_tree:new(root_word, dist_func)
 
 end
 
---------------------------
---- Inserts word into tree.
+--------------------------------
+--- Inserts word into the tree.
 -- @string word
 -- @treturn bool true if inserted, false if word already exists in tree
 --- @usage
@@ -174,8 +174,8 @@ function bk_tree:insert(word, node)
 
 end
 
----------------------------
---- Removes word from tree
+--------------------------------
+--- Remove a word from the tree.
 -- @string word
 -- @treturn bool true if succeeded, false if word doesn't exist in tree.
 --- @usage
@@ -201,7 +201,7 @@ function bk_tree:remove(word, node, parent, n)
 end
 
 --------------------------------
---- Query the tree for a word
+--- Query the tree for a word.
 -- @string word
 -- @tparam number n max edit distance to use when querying
 -- @treturn {string,....} table with matching words, empty table if no matches
