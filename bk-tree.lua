@@ -10,12 +10,17 @@
 
 local bk_tree = {}
 
+
 local function lazy_copy(t1)
+
 	local cp = {}
+
 	for k, v in pairs(t1) do
 		cp[k] = v
 	end
+
 	return cp
+
 end
 
 local function min(...)
@@ -139,7 +144,9 @@ end
 -- @within Debug
 -- @return {key = value,...}
 function bk_tree:get_stats()
+
 	return lazy_copy(self.stats)
+
 end
 
 ---------------------------
