@@ -150,7 +150,7 @@ end
 ---------------------------
 --- Creates a new bk-tree.
 -- @constructor
--- @string root_word the root of the new tree
+-- @string[opt] root_word the root of the new tree
 -- @tparam[opt=levenshtein_dist] function dist_func the distance function used
 -- @see levenshtein_dist
 -- @return the new bk-tree instance
@@ -178,14 +178,14 @@ end
 -- bktree = require "bk-tree"
 -- local tree = bktree:new("root")
 -- local success = tree:insert("other_word")
-function bk_tree:insert(word, node, nch)
+function bk_tree:insert(word, node)
 
 	node = node or self.root
-	nch = nch or {}
+
 	if not node then
-		self.root = { str = word, children = nch }
+		self.root = { str = word, children = {} }
 		return true
-	end
+	end	
 
 	local dist = self.dist_func(word, node.str)
 	if dist == 0 then return false end
@@ -193,45 +193,12 @@ function bk_tree:insert(word, node, nch)
 	local some_node = node.children[dist]
 
 	if not some_node then
-		node.children[dist] = { str = word, children = nch }
+		node.children[dist] = { str = word, children = {} }
 		return true
 	end	
 
-	return self:insert(word, some_node, nch)
+	return self:insert(word, some_node)
 
-end
-
----------------------------------
---- Remove a word from the tree.
--- @string word
--- @treturn bool true if succeeded, false if word doesn't exist in tree.
---- @usage
--- bktree = require "bk-tree"
--- local tree = bktree:new("root")
--- local success = tree:remove("root")
-function bk_tree:remove(word, node, parent, n)
-
-	node = node or self.root
-
-	if not node then return false end
-	
-	local dist = self.dist_func(word, node.str)
-
-	if dist == 0 then
-		if not parent then 
-			self.root = nil 
-		else parent.children[n] = nil end
-		for k, child in pairs(node.children) do
-			self:insert(child.str, parent, child.children)
-		end
-		return true
-	end
-
-	local next_node = node.children[dist]
-	if not next_node then return false end
-
-	return self:remove(word, next_node, node, dist)
-	
 end
 
 --------------------------------

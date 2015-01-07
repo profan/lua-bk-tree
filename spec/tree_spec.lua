@@ -97,20 +97,6 @@ describe("some tests", function()
 			tree = nil
 		end)
 
-		it("should survive root removal", function()
-			local rand_index = math.random(2, #inserted_words)
-			assert.truthy(tree:remove(inserted_words[1]))
-			print(inserted_words[1])
-			for i=2, #inserted_words do
-				print(inserted_words[i], tree:query(inserted_words[i], 0)[1])
-				assert.are_equal(1, #tree:query(inserted_words[i], 0))
-			end
-		end)
-
-		it("should should not break when all elements are removed", function()
-			
-		end)
-
 	end)
 
 	describe("tests querying", function()
