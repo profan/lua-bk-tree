@@ -7,3 +7,4 @@ docs/
 !examples/*
 !spec/*
 other_docs
+.*.s??

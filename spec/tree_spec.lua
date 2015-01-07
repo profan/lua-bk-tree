@@ -108,7 +108,8 @@ describe("some tests", function()
 
 		it("queries for some fuzzy matches", function()
 			for k, word in pairs(inserted_words) do
-				local result = tree:query(fuzz_word(word, 1), 1)
+				local rand_num = math.random(#word)
+				local result = tree:query(fuzz_word(word, rand_num), rand_num)
 				assert.has_values(result, {word})
 			end
 		end)
