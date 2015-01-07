@@ -44,31 +44,28 @@ end
 -- @tparam string s2
 -- @treturn number the levenshtein distance
 -- @within Metrics
-
 function bk_tree.levenshtein_dist(s1, s2)
 	
 	if s1 == s2 then return 0 end
 	if s1:len() == 0 then return s2:len() end
 	if s2:len() == 0 then return s1:len() end
-	if s1:len() > s2:len() then s1, s2 = s2, s1 end
+	if s1:len() < s2:len() then s1, s2 = s2, s1 end
 
 	t = {}
-	for i=1, #s1+1 do
-		t[i] = {0, i}
-	end
-
 	for i=1, #s2+1 do
-		t[1][i] = 0
-		t[2][i] = i
+		t[i] = {i}
 	end
 
-	t[#s1] = {0}
-	t[#s1][#s2] = 0
+	for i=1, #s1+1 do
+		t[1][i] = 0
+	end
 
+	local cost
 	for i=2, #s1+1 do
-		
+	
+		t[i] = {i-1}
 		for j=2, #s2+1 do
-			cost = (s1:sub(i,i) == s2:sub(j,j) and 0) or 1
+			cost = (s1:sub(i-1,i-1) == s2:sub(j-1,j-1) and 0) or 1
 			t[i][j] = min(
 				t[i-1][j] + 1,
 				t[i][j-1] + 1,
@@ -77,7 +74,7 @@ function bk_tree.levenshtein_dist(s1, s2)
 
 	end
 
-	return t[#s1][#s2]
+	return t[#s1+1][#s2+1]
 	
 end
 
