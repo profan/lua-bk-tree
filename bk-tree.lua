@@ -159,10 +159,8 @@ end
 -- local tree = bktree:new("word")
 function bk_tree:new(root_word, dist_func)
 
-	if not root_word then error("root_word parameter is nil!") end
-
 	local n_obj = {}
-	n_obj.root = { str = root_word, children = {} }
+	if root_word then n_obj.root = { str = root_word, children = {} } end
 	n_obj.dist_func = dist_func or self.levenshtein_dist
 
 	setmetatable(n_obj, self)
@@ -183,6 +181,11 @@ end
 function bk_tree:insert(word, node)
 
 	node = node or self.root
+
+	if not node then
+		self.root = { str = word, children = {} }
+		return true
+	end
 
 	local dist = self.dist_func(word, node.str)
 	if dist == 0 then return false end
@@ -210,10 +213,14 @@ function bk_tree:remove(word, node, parent, n)
 
 	node = node or self.root
 
+	if not node then return false end
+	
 	local dist = self.dist_func(word, node.str)
 
 	if dist == 0 then
-		parent.children[n] = nil
+		if not parent then 
+			self.root = nil 
+		else parent.children[n] = nil end
 		for k, child in pairs(node.children) do
 			self:insert(child.str, parent)
 		end
@@ -243,6 +250,8 @@ function bk_tree:query(word, n, node, matches)
 
 	node = node or self.root
 	matches = matches or {}
+
+	if not node then return matches end
 
 	local dist = self.dist_func(word, node.str)
 	if dist <= n then matches[#matches+1] = node.str end
