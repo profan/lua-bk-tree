@@ -61,7 +61,6 @@ assert:register("assertion", "has_values", has_values, "assertion.has_values.pos
 
 describe("some tests", function()
 
-	local tree
 	it("should make an instance", function()
 	
 		assert.truthy(bktree:new("word"))
@@ -76,17 +75,13 @@ describe("some tests", function()
 
 	describe("tests querying", function()
 
+		local tree
 		local inserted_words
 			
-		setup(function()
-			tree = bktree:new("root")
-		end)
-
-		teardown(function()
-			tree = nil
-		end)
-
 		before_each(function()
+
+			tree = bktree:new("root")
+
 			local wc = 0
 			inserted_words = {}
 			repeat
@@ -97,6 +92,11 @@ describe("some tests", function()
 					wc = wc + 1 
 				end
 			until wc == math.random(wc, #words)
+		end)
+
+		after_each(function()
+			inserted_words = nil
+			tree = nil
 		end)
 
 		it("queries for some inserted words", function()
