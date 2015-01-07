@@ -52,18 +52,17 @@ function bk_tree.levenshtein_dist(s1, s2)
 	if s1:len() < s2:len() then s1, s2 = s2, s1 end
 
 	t = {}
-	for i=1, #s2+1 do
+	for i=1, #s1+1 do
 		t[i] = {i-1}
 	end
 
-	for i=1, #s1+1 do
+	for i=1, #s2+1 do
 		t[1][i] = i-1
 	end
 
 	local cost
 	for i=2, #s1+1 do
 	
-		t[i] = {i}
 		for j=2, #s2+1 do
 			cost = (s1:sub(i-1,i-1) == s2:sub(j-1,j-1) and 0) or 1
 			t[i][j] = min(
