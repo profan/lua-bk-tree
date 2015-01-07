@@ -10,13 +10,15 @@ Requirements
 
 * Lua >= 5.1
 
-Running one of the example programs (a small spellchecker)
+### Running one of the example programs (a small spellchecker)
 
 	lua example/spelling.lua
 
-Running the tests
+### Running the tests
 
-	...
+Requires busted, simply run busted to run the tests in the spec folder.
+
+	busted
 
 Downloading the source
 ------------
@@ -52,10 +54,6 @@ end
 
 Do inspect the bundled examples !
 
-TODO
-------------
-
- - [ ] ... write tests?
 
 License
 ------------
