@@ -20,9 +20,18 @@ local words = {
 
 local function fuzz_word(word, n)
 	local new_str = word
+	
+	local r
+	local pos
+	local set = {}
 	for i=1, n do
-		pos = math.random(#word)
-		r = string.char(math.random(127))
+		repeat
+			pos = math.random(#word)
+		until not set[pos]
+		repeat
+			r = string.char(math.random(32, 127))
+		until r ~= word:sub(pos,pos)
+		set[pos] = true
 		new_str = new_str:sub(1, pos-1) .. r .. new_str:sub(pos+1)
 	end
 	return new_str
@@ -73,7 +82,7 @@ say:set("assertion.has_values.positive", "Expected %s \nto have values: %s")
 say:set("assertion.has_values.negative", "Expected %s \nto not have values: %s")
 assert:register("assertion", "has_values", has_values, "assertion.has_values.positive", "assertion.has_values.negative")
 
-describe("some tests", function()
+describe("bk tree tests", function()
 
 	it("should make an instance", function()
 	
@@ -82,19 +91,29 @@ describe("some tests", function()
 	
 	end)
 
+	describe("levenshtein tests", function()
+		for k, word in pairs(words) do
+			local rand_num = math.random(#word)
+			local fuzzed = fuzz_word(word, rand_num)
+			assert.is_equal(rand_num, bktree.levenshtein_dist(word, fuzzed))
+		end
+	end)
 
 	describe("tests insertion", function()
 		
 		local tree
-		local inserted_words
 		before_each(function()
 			tree = bktree:new()
-			inserted_words = insert_some_words(tree, words, 2)
 		end)
 
 		after_each(function()
-			inserted_words = nil
 			tree = nil
+		end)
+
+		it("tests if insertion succeeds", function()
+			for k, word in pairs(words) do
+				assert.truthy(tree:insert(word))
+			end
 		end)
 
 	end)
