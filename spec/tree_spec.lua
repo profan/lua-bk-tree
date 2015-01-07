@@ -28,6 +28,20 @@ local function fuzz_word(word, n)
 	return new_str
 end
 
+local function insert_some_words(atree, wtable, lower)
+	local wc = 0
+	local some_words = {}
+	repeat
+		local word = wtable[math.random(#wtable)]
+		local success = atree:insert(word)
+		if success then 
+			some_words[#some_words+1] = word
+			wc = wc + 1 
+		end
+	until wc == math.random(lower or 1, #wtable)
+	return some_words
+end
+
 local function table_len(t)
 	local len = 0
 	for k, v in pairs(t) do len = len + 1 end
@@ -64,12 +78,38 @@ describe("some tests", function()
 	it("should make an instance", function()
 	
 		assert.truthy(bktree:new("word"))
+		assert.truthy(bktree:new())
 	
 	end)
 
-	it("should fail creating an instance", function()
 
-		assert.has_error(function() bktree:new() end)
+	describe("tests insertion", function()
+		
+		local tree
+		local inserted_words
+		before_each(function()
+			tree = bktree:new()
+			inserted_words = insert_some_words(tree, words, 2)
+		end)
+
+		after_each(function()
+			inserted_words = nil
+			tree = nil
+		end)
+
+		it("should survive root removal", function()
+			local rand_index = math.random(2, #inserted_words)
+			assert.truthy(tree:remove(inserted_words[1]))
+			print(inserted_words[1])
+			for i=2, #inserted_words do
+				print(inserted_words[i], tree:query(inserted_words[i], 0)[1])
+				assert.are_equal(1, #tree:query(inserted_words[i], 0))
+			end
+		end)
+
+		it("should should not break when all elements are removed", function()
+			
+		end)
 
 	end)
 
@@ -79,19 +119,9 @@ describe("some tests", function()
 		local inserted_words
 			
 		before_each(function()
-
-			tree = bktree:new("root")
-
 			local wc = 0
-			inserted_words = {}
-			repeat
-				local word = words[math.random(#words)]
-				local success = tree:insert(word)
-				if success then 
-					inserted_words[#inserted_words+1] = word
-					wc = wc + 1 
-				end
-			until wc == math.random(wc, #words)
+			tree = bktree:new()
+			inserted_words = insert_some_words(tree, words)
 		end)
 
 		after_each(function()

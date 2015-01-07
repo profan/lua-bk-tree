@@ -178,12 +178,12 @@ end
 -- bktree = require "bk-tree"
 -- local tree = bktree:new("root")
 -- local success = tree:insert("other_word")
-function bk_tree:insert(word, node)
+function bk_tree:insert(word, node, nch)
 
 	node = node or self.root
-
+	nch = nch or {}
 	if not node then
-		self.root = { str = word, children = {} }
+		self.root = { str = word, children = nch }
 		return true
 	end
 
@@ -193,11 +193,11 @@ function bk_tree:insert(word, node)
 	local some_node = node.children[dist]
 
 	if not some_node then
-		node.children[dist] = { str = word, children = {} }
+		node.children[dist] = { str = word, children = nch }
 		return true
 	end	
 
-	return self:insert(word, some_node)
+	return self:insert(word, some_node, nch)
 
 end
 
@@ -222,7 +222,7 @@ function bk_tree:remove(word, node, parent, n)
 			self.root = nil 
 		else parent.children[n] = nil end
 		for k, child in pairs(node.children) do
-			self:insert(child.str, parent)
+			self:insert(child.str, parent, child.children)
 		end
 		return true
 	end
