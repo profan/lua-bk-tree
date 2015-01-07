@@ -32,7 +32,7 @@ Either with git clone as below or by downloading a zipball of the [latest...](ht
 Usage Example
 ------------
 
-Gives you the words in the tree within 3 [edit distance](http://en.wikipedia.org/wiki/Edit_distance) to `beutiful`, in this case `beautiful`
+Gives you the words in the tree within 1 [edit distance](http://en.wikipedia.org/wiki/Edit_distance) to `beutiful`, in this case `beautiful`
 
 ```lua
 bktree = require "bk-tree"
@@ -43,7 +43,7 @@ tree:insert("perceive")
 tree:insert("original")
 tree:insert("beautiful")
 
-result = tree:query("beutiful", 3)
+result = tree:query("beutiful", 1)
 
 for k, v in pairs(result) do
 	print (v)
