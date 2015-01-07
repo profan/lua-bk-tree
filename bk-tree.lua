@@ -44,39 +44,40 @@ end
 -- @tparam string s2
 -- @treturn number the levenshtein distance
 -- @within Metrics
+
 function bk_tree.levenshtein_dist(s1, s2)
 	
 	if s1 == s2 then return 0 end
 	if s1:len() == 0 then return s2:len() end
 	if s2:len() == 0 then return s1:len() end
-	if s1:len() > s2:len() then s2, s1 = s1, s2 end
+	if s1:len() > s2:len() then s1, s2 = s2, s1 end
 
-	t1, t2 = {}, {}
+	t = {}
+	for i=1, #s1+1 do
+		t[i] = {0, i}
+	end
 
 	for i=1, #s2+1 do
-		t1[i] = i
+		t[1][i] = 0
+		t[2][i] = i
 	end
 
-	local cost
-	for i=1, #s1 do
+	t[#s1] = {0}
+	t[#s1][#s2] = 0
+
+	for i=2, #s1+1 do
 		
-		t2[1] = i + 1
-		
-		for j=1, #s2 do
+		for j=2, #s2+1 do
 			cost = (s1:sub(i,i) == s2:sub(j,j) and 0) or 1
-			t2[j + 1] = min( 
-				t2[j] + 1,
-				t1[j + 1] + 1,
-				t1[j] + cost)
-		end
-
-		for j=1, #t1 do
-			t1[j] = t2[j]
+			t[i][j] = min(
+				t[i-1][j] + 1,
+				t[i][j-1] + 1,
+				t[i-1][j-1] + cost)
 		end
 
 	end
 
-	return t2[#s2]
+	return t[#s1][#s2]
 	
 end
 
@@ -88,7 +89,7 @@ function bk_tree.hook(param)
 	--[[ previous function in the callstack, if called from the same place,
 			don't add to the insert/remove counters. ]]--
 
-	if f == bk_tree.insert and p == bk_tree.insert then
+	if f == bk_tree.insert and p ~= bk_tree.insert then
 		callee.stats.nodes = callee.stats.nodes + 1
 	elseif f == bk_tree.remove and p ~= bk_tree.remove then
 		callee.stats.nodes = callee.stats.nodes - 1
@@ -160,6 +161,8 @@ end
 -- bktree = require "bk-tree"
 -- local tree = bktree:new("word")
 function bk_tree:new(root_word, dist_func)
+
+	if not root_word then error("root_word parameter is nil!") end
 
 	local n_obj = {}
 	n_obj.root = { str = root_word, children = {} }
