@@ -42,13 +42,13 @@ io.write("input edit distance(small numbers): ")
 io.flush()
 distance = io.read()
 
-result = tree:query(word, tonumber(distance))
+result = tree:query_sorted(word, tonumber(distance))
 
 if result then
 
 	print("candidates: ")
 	for k, v in pairs(result) do
-	    print (" - " .. v)
+	    print (v.str, v.distance)
 	end
 
 else

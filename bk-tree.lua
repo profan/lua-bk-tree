@@ -201,10 +201,10 @@ function bk_tree:insert(word, node)
 end
 
 --------------------------------
---- Query the tree for a word.
+--- Query the tree for matches.
 -- @string word
 -- @tparam number n max edit distance to use when querying
--- @treturn {string,....} table with matching words, empty table if no matches
+-- @treturn {{str=string,distance=number},....} table of tables with matching words, empty table if no matches
 --- @usage
 -- bktree = require "bk-tree"
 -- local tree = bktree:new("word")
@@ -220,7 +220,7 @@ function bk_tree:query(word, n, node, matches)
 	if not node then return matches end
 
 	local dist = self.dist_func(word, node.str)
-	if dist <= n then matches[#matches+1] = node.str end
+	if dist <= n then matches[#matches+1] = {str = node.str, distance = dist} end
 	
 	for k, child in pairs(node.children) do
 		if child ~= nil then
@@ -232,6 +232,25 @@ function bk_tree:query(word, n, node, matches)
 
 	return matches
 
+end
+
+---------------------------------------------------------
+--- Queries the the tree for a match, sorts the results.
+-- Calls @{query} and returns the results sorted.
+-- @string word
+-- @tparam number n max edit distance to use when querying
+-- @treturn {{str=string,distance=number},....} table of tables with matching words sorted by distance, empty table if no matches
+--- @usage
+-- bktree = require "bk-tree"
+-- local tree = bktree:new("word")
+-- tree:insert("woop")
+-- tree:insert("worp")
+-- tree:insert("warp")
+-- local result = tree:query_sorted("woop", 3)
+function bk_tree:query_sorted(word, n)
+	local result = self:query(word, n)
+	table.sort(result, function(a,b) return a.distance < b.distance end)
+	return result
 end
 
 return bk_tree
