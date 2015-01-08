@@ -116,7 +116,9 @@ end
 -- Nodes Queried: 75%
 function bk_tree:debug()
 
-	self.stats = { nodes = 1, queries = 0 }
+	local nc = 0
+	if self.root then nc = 1 end
+	self.stats = { nodes = nc, queries = 0 }
 	debug.sethook(self.hook, "c")
 
 end
