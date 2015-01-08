@@ -66,8 +66,8 @@ local function has_values(state, args)
 	local found_items = {}
 	for key, value in pairs(args[2]) do
 		for k, v in pairs(args[1]) do
-			if value == v then 
-				found_items[v] = true
+			if value == v.str then 
+				found_items[v.str] = true
 			end
 		end
 	end

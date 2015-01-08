@@ -48,7 +48,7 @@ tree:insert("beautiful")
 result = tree:query("beutiful", 1)
 
 for k, v in pairs(result) do
-	print (v)
+	print (v.str)
 end
 ```
 
