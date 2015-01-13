@@ -1,7 +1,7 @@
 package = "bk-tree"
 version = "1.0.0-1"
 source = {
-	url = "https://github.com/profan/lua-bk-tree/archive/lua-bk-tree-1.0.0.tar.gz",
+	url = "https://github.com/profan/lua-bk-tree/archive/v1.0.0.tar.gz",
 	dir = "lua-bk-tree-1.0.0"
 }
 
