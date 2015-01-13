@@ -1,15 +1,14 @@
 package = "bk-tree"
-version = "1.0-1"
+version = "1.0.0-1"
 source = {
-	url = "https://github.com/profan/lua-bk-tree/archive/lua-bk-tree-1.0.0.tar.gz"
+	url = "https://github.com/profan/lua-bk-tree/archive/lua-bk-tree-1.0.0.tar.gz",
+	dir = "lua-bk-tree-1.0.0"
 }
 
 description = {
-	summary = "bk-tree datastructure",
+	summary = "BK-trees, commonly used for finding near matches to strings.",
 	detailed = [[
-		Burkhard-Keller Trees or bk-trees, 
-		a datastructure commonly used for fuzzy
-		string matching, spell checkign or similar.
+Burkhard-Keller Trees or bk-trees, a datastructure commonly used for fuzzy string matching, spell checking or similar, comes with a levenshtein distance metric for measuring similarity.
 	]],
 	homepage = "http://profan.github.io/lua-bk-tree/",
 	license = "MIT/X11"
