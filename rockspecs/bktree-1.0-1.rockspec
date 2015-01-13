@@ -1,15 +1,17 @@
 package = "regexulon"
 version = "1.0-1"
 source = {
-	url = "..."
+	url = "https://github.com/profan/lua-bk-tree/archive/lua-bk-tree-1.0.0.tar.gz"
 }
 
 description = {
-	summary = "thingy",
+	summary = "bk-tree datastructure",
 	detailed = [[
-		detailed thingy
+		Burkhard-Keller Trees or bk-trees, 
+		a datastructure commonly used for fuzzy
+		string matching, spell checkign or similar.
 	]],
-	homepage = "http://..",
+	homepage = "http://profan.github.io/lua-bk-tree/",
 	license = "MIT/X11"
 }
 
@@ -18,5 +20,8 @@ dependencies = {
 }
 
 build = {
-	type = "make"
+	type = "builtin",
+	modules = {
+		["bk-tree"] = "bk-tree.lua"
+	}
 }
