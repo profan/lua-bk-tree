@@ -250,9 +250,13 @@ end
 -- tree:insert("warp")
 -- local result = tree:query_sorted("woop", 3)
 function bk_tree:query_sorted(word, n)
+
 	local result = self:query(word, n)
+
 	table.sort(result, function(a,b) return a.distance < b.distance end)
+
 	return result
+
 end
 
 return bk_tree
