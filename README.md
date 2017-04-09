@@ -23,16 +23,16 @@ Requires busted, simply run busted to run the tests in the spec folder.
 Downloading
 ------------
 
-###Archive
+### Archive
 
 v 1.0.0
 * **zip** https://github.com/profan/lua-bk-tree/archive/v1.0.0.zip
 * **tar.gz** https://github.com/profan/lua-bk-tree/archive/v1.0.0.tar.gz
 
-###Git		
+### Git		
 	git clone https://github.com/Profan/lua-bk-tree.git
 
-##LuaRocks
+## LuaRocks
 	luarocks install bk-tree
 
 
