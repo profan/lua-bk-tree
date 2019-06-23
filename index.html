@@ -36,11 +36,11 @@
 
 
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><strong>bk-tree</strong></li>
 </ul>
 <h2>Examples</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="examples/spelling.lua.html">spelling.lua</a></li>
 </ul>
 <h2>Repository</h2>
@@ -57,7 +57,7 @@
 <p><a href="http://en.wikipedia.org/wiki/BK-tree">http://en.wikipedia.org/wiki/BK-tree</a></p>
     <h3>Info:</h3>
     <ul>
-        <li><strong>Release</strong>: version 1.0</li>
+        <li><strong>Release</strong>: version 1.0.2</li>
         <li><strong>License</strong>: MIT</li>
         <li><strong>Author</strong>: Robin Hübner
  robinhubner@gmail.com</li>
@@ -110,7 +110,7 @@
 <br/>
 
 
-    <h2><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
     <dt>
@@ -124,7 +124,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">root_word</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          the root of the new tree
          (<em>optional</em>)
         </li>
@@ -149,9 +149,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">
- bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
- <span class="keyword">local</span> tree = bktree:new(<span class="string">"word"</span>)</pre>
+        <pre class="example"><span class="keyword">local</span> bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+<span class="keyword">local</span> tree = bktree:new(<span class="string">"word"</span>)</pre>
     </ul>
 
 </dd>
@@ -166,7 +165,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">word</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
         </li>
     </ul>
@@ -182,10 +181,9 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">
- bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
- <span class="keyword">local</span> tree = bktree:new(<span class="string">"root"</span>)
- <span class="keyword">local</span> success = tree:insert(<span class="string">"other_word"</span>)</pre>
+        <pre class="example"><span class="keyword">local</span> bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+<span class="keyword">local</span> tree = bktree:new(<span class="string">"root"</span>)
+<span class="keyword">local</span> success = tree:insert(<span class="string">"other_word"</span>)</pre>
     </ul>
 
 </dd>
@@ -200,7 +198,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">word</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
         </li>
         <li><span class="parameter">n</span>
@@ -220,13 +218,12 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">
- bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
- <span class="keyword">local</span> tree = bktree:new(<span class="string">"word"</span>)
- tree:insert(<span class="string">"hello"</span>)
- tree:insert(<span class="string">"goodbye"</span>)
- tree:insert(<span class="string">"woop"</span>)
- <span class="keyword">local</span> result = tree:query(<span class="string">"woop"</span>, <span class="number">1</span>)</pre>
+        <pre class="example"><span class="keyword">local</span> bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+<span class="keyword">local</span> tree = bktree:new(<span class="string">"word"</span>)
+tree:insert(<span class="string">"hello"</span>)
+tree:insert(<span class="string">"goodbye"</span>)
+tree:insert(<span class="string">"woop"</span>)
+<span class="keyword">local</span> result = tree:query(<span class="string">"woop"</span>, <span class="number">1</span>)</pre>
     </ul>
 
 </dd>
@@ -242,7 +239,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">word</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
         </li>
         <li><span class="parameter">n</span>
@@ -262,18 +259,17 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">
- bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
- <span class="keyword">local</span> tree = bktree:new(<span class="string">"word"</span>)
- tree:insert(<span class="string">"woop"</span>)
- tree:insert(<span class="string">"worp"</span>)
- tree:insert(<span class="string">"warp"</span>)
- <span class="keyword">local</span> result = tree:query_sorted(<span class="string">"woop"</span>, <span class="number">3</span>)</pre>
+        <pre class="example"><span class="keyword">local</span> bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+<span class="keyword">local</span> tree = bktree:new(<span class="string">"word"</span>)
+tree:insert(<span class="string">"woop"</span>)
+tree:insert(<span class="string">"worp"</span>)
+tree:insert(<span class="string">"warp"</span>)
+<span class="keyword">local</span> result = tree:query_sorted(<span class="string">"woop"</span>, <span class="number">3</span>)</pre>
     </ul>
 
 </dd>
 </dl>
-    <h2><a name="Metrics"></a>Metrics</h2>
+    <h2 class="section-header "><a name="Metrics"></a>Metrics</h2>
 
     <dl class="function">
     <dt>
@@ -287,11 +283,11 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">s1</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
         </li>
         <li><span class="parameter">s2</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
         </li>
     </ul>
@@ -308,7 +304,7 @@
 
 </dd>
 </dl>
-    <h2><a name="Debug"></a>Debug</h2>
+    <h2 class="section-header "><a name="Debug"></a>Debug</h2>
 
     <dl class="function">
     <dt>
@@ -328,20 +324,19 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">
- bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
- tree = bktree:new(<span class="string">"word"</span>)
- tree:<span class="global">debug</span>()
- tree:insert(<span class="string">"perceive"</span>)
- tree:insert(<span class="string">"beautiful"</span>)
- tree:insert(<span class="string">"definitely"</span>)
- <span class="keyword">local</span> result = tree:query(<span class="string">"definately"</span>, <span class="number">3</span>)
- tree:print_stats()
+        <pre class="example"><span class="keyword">local</span> bktree = <span class="global">require</span> <span class="string">"bk-tree"</span>
+<span class="keyword">local</span> tree = bktree:new(<span class="string">"word"</span>)
+tree:<span class="global">debug</span>()
+tree:insert(<span class="string">"perceive"</span>)
+tree:insert(<span class="string">"beautiful"</span>)
+tree:insert(<span class="string">"definitely"</span>)
+<span class="keyword">local</span> result = tree:query(<span class="string">"definately"</span>, <span class="number">3</span>)
+tree:print_stats()
 
- <span class="comment">-- output
-</span> Nodes: <span class="number">4</span>
- Queries: <span class="number">3</span>
- Nodes Queried: <span class="number">75</span>%</pre>
+<span class="comment">-- output
+</span>Nodes: <span class="number">4</span>
+Queries: <span class="number">3</span>
+Nodes Queried: <span class="number">75</span>%</pre>
     </ul>
 
 </dd>
@@ -392,8 +387,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2015-01-08 01:45:14 </i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-06-23 06:50:46 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
