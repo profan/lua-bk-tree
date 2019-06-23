@@ -54,7 +54,7 @@ tree:insert("perceive")
 tree:insert("original")
 tree:insert("beautiful")
 
-result = tree:query("beutiful", 1)
+local result = tree:query("beutiful", 1)
 
 for k, v in pairs(result) do
 	print (v.str)
