@@ -30,7 +30,7 @@ v 1.0.1
 * **tar.gz** https://github.com/profan/lua-bk-tree/archive/v1.0.1.tar.gz
 
 ### Git		
-	git clone https://github.com/Profan/lua-bk-tree.git
+	git clone https://github.com/profan/lua-bk-tree.git
 
 ## LuaRocks
 	luarocks install bk-tree
