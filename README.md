@@ -30,7 +30,7 @@ v 1.0.1
 * **tar.gz** https://github.com/profan/lua-bk-tree/archive/v1.0.1.tar.gz
 
 ### Git		
-	git clone https://github.com/profan/lua-bk-tree.git
+	git clone git@github.com:profan/lua-bk-tree.git
 
 ## LuaRocks
 	luarocks install bk-tree
@@ -46,9 +46,9 @@ Usage Example
 Gives you the words in the tree within 1 [edit distance](http://en.wikipedia.org/wiki/Edit_distance) to `beutiful`, in this case `beautiful`
 
 ```lua
-bktree = require "bk-tree"
+local bktree = require "bk-tree"
 
-tree = bktree:new("book")
+local tree = bktree:new("book")
 
 tree:insert("perceive")
 tree:insert("original")

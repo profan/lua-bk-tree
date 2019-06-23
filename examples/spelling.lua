@@ -1,8 +1,8 @@
 print ("\nSimple spellcheck example! \n")
 
-bktree = require "bk-tree"
+local bktree = require "bk-tree"
 
-words = {
+local words = {
 	"bark", 
 	"car", 
 	"dog", 
@@ -19,7 +19,7 @@ words = {
 	"accidentally"
 }
 
-tree = bktree:new("book")
+local tree = bktree:new("book")
 tree:debug()
 
 local x = os.clock()
@@ -36,13 +36,13 @@ print(" - time per word: " .. (t/#words)+1 .. " s")
 
 io.write("input an incorrectly spelled word to test: ")
 io.flush()
-word = io.read()
+local word = io.read()
 
 io.write("input edit distance(small numbers): ")
 io.flush()
-distance = io.read()
+local distance = io.read()
 
-result = tree:query_sorted(word, tonumber(distance))
+local result = tree:query_sorted(word, tonumber(distance))
 
 if result then
 
