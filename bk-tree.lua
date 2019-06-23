@@ -97,8 +97,8 @@ end
 -- in order to get correct information.
 -- @within Debug
 --- @usage
--- bktree = require "bk-tree"
--- tree = bktree:new("word")
+-- local bktree = require "bk-tree"
+-- local tree = bktree:new("word")
 -- tree:debug()
 -- tree:insert("perceive")
 -- tree:insert("beautiful")
@@ -152,7 +152,7 @@ end
 -- @see levenshtein_dist
 -- @return the new bk-tree instance
 --- @usage
--- bktree = require "bk-tree"
+-- local bktree = require "bk-tree"
 -- local tree = bktree:new("word")
 function bk_tree:new(root_word, dist_func)
 
@@ -172,7 +172,7 @@ end
 -- @string word
 -- @treturn bool true if inserted, false if word already exists in tree
 --- @usage
--- bktree = require "bk-tree"
+-- local bktree = require "bk-tree"
 -- local tree = bktree:new("root")
 -- local success = tree:insert("other_word")
 function bk_tree:insert(word, node)
@@ -204,7 +204,7 @@ end
 -- @tparam number n max edit distance to use when querying
 -- @treturn {{str=string,distance=number},....} table of tables with matching words, empty table if no matches
 --- @usage
--- bktree = require "bk-tree"
+-- local bktree = require "bk-tree"
 -- local tree = bktree:new("word")
 -- tree:insert("hello")
 -- tree:insert("goodbye")
@@ -239,7 +239,7 @@ end
 -- @tparam number n max edit distance to use when querying
 -- @treturn {{str=string,distance=number},....} table of tables with matching words sorted by distance, empty table if no matches
 --- @usage
--- bktree = require "bk-tree"
+-- local bktree = require "bk-tree"
 -- local tree = bktree:new("word")
 -- tree:insert("woop")
 -- tree:insert("worp")
