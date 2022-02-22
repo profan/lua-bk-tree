@@ -25,9 +25,9 @@ Downloading
 
 ### Archive
 
-v1.0.2
-* **zip** https://github.com/profan/lua-bk-tree/archive/v1.0.2.zip
-* **tar.gz** https://github.com/profan/lua-bk-tree/archive/v1.0.2.tar.gz
+v1.0.3
+* **zip** https://github.com/profan/lua-bk-tree/archive/v1.0.3.zip
+* **tar.gz** https://github.com/profan/lua-bk-tree/archive/v1.0.3.tar.gz
 
 ### Git		
 	git clone git@github.com:profan/lua-bk-tree.git
