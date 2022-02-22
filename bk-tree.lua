@@ -5,7 +5,7 @@
 -- @module bk-tree
 -- @author Robin Hübner
 -- robinhubner@gmail.com
--- @release version 1.0.2
+-- @release version 1.0.3
 -- @license MIT
 
 local bk_tree = {}
