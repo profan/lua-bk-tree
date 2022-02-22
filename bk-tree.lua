@@ -47,7 +47,7 @@ function bk_tree.levenshtein_dist(s1, s2)
 	if s2:len() == 0 then return s1:len() end
 	if s1:len() < s2:len() then s1, s2 = s2, s1 end
 
-	t = {}
+	local t = {}
 	for i=1, #s1+1 do
 		t[i] = {i-1}
 	end
